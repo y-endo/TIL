@@ -148,6 +148,21 @@ const page: any = { name: 'profile' };
 const name: string = page as string;
 ```
 
+## keyof と Mapped Type: オブジェクトのキーの文字列のみを許容する動的な型宣言
+```
+type Park = {
+  name: string;
+  hasTako: boolean;
+}
+
+// Parkのキー（'name' | 'hasTako'）が割り当てられる
+type Key = keyof Park;
+const key: Key = 'name'; // ok
+const key: Key = 'hoge'; // ng
+// 1行でも書ける
+const key: keyof Park = 'hasTako';
+```
+
 ## インターフェースを使った型定義
 オブジェクトの型をつける方法は、typeを使う以外に、インターフェース定義を使う方法もある。
 ```
@@ -163,5 +178,106 @@ interface Person {
 
 // インターフェースの場合、型合成は継承で表現できる
 interface SNSAccount extends Twitter, Instagram{
+}
+```
+
+# InterfaceとTypeの比較の重要ポイント
+同名のInterfaceは全てマージされる。これを利用してInterfaceを拡張できる。
+```
+interface IPoint2D {
+  x: number;
+  y: number;
+}
+interface IPoint2D {
+  name: string;
+}
+const ok: IPoint2D = {x: 1, y: 1, name: 'p1'}; // OK
+const ng: IPoint2D = {x: 1, y: 1}; // コンパイルエラー
+```
+一方で、Typeは複数宣言すると単純にエラーになる。
+```
+type TPoint2D = {
+  x: number;
+  y: number;
+}
+type TPoint2D = { // コンパイルエラー
+  name: string;
+}
+```
+これは結構な違いで、Interfaceを使っていないライブラリにちょっと追加したいときに苦労するかもしれない。基本的になるべくInterfaceを使えというのはこれが理由だと思う。
+
+# 関数
+## 関数の返り値の型定義
+compilerOptions.noImplicitAny オプションが true の場合には : void を書かないとエラーになりますので、忘れずに書くようにしましょう。
+
+## デフォルト引数
+```
+function f(name='小動物', favorite='小豆餅') {
+}
+
+// 分割代入を使えば、デフォルト値つきのオブジェクト引数も楽
+function f({ name='小動物', favorite='小豆餅' } = {}) {
+}
+```
+
+## 関数を含むオブジェクトの定義方法
+クラスを作るまでもない場合は、オブジェクトを作って関数をメンバーとしていれることがある。  
+それがES2015以降は簡単に書ける。  
+setter / getterの宣言も簡単に行えるようになった。
+```
+// 旧: オブジェクトの関数
+var smallAnimal = {
+   getName: function() {
+     return "小動物";
+   }
+};
+// 旧: setter/getter追加
+Object.defineProperty(smallAnimal, "favorite", {
+  get: function() {
+    return this._favorite;
+  },
+  set: function(favorite) {
+    this._favorite = favorite;
+  }
+});
+
+// 新: オブジェクトの関数
+//     functionを省略
+//     setter/getterも簡単に
+const smallAnimal = {
+  getName() {
+    return "小動物"
+  },
+  _favorite: "小笠原",
+  get favorite() {
+    return this._favorite;
+  },
+  set favorite(favorite) {
+    this._favorite = favorite;
+  }
+};
+```
+
+# ジェネリクス
+使われるまで型がきまらないような色々な型の値を受け入れられる。
+
+# 全イベント名がまとまった辞書
+https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.globaleventhandlerseventmap.html#click
+
+https://microsoft.github.io/PowerBI-JavaScript/modules/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.html
+このページでDOM系の型を確認できる、ヒエラルキーとか見ると分かりやすい
+Event
+ UIEvent
+  MouseEvent
+  TouchEvent
+  〜〜〜
+
+# Function.bind(this)は非推奨ってはなし
+https://qiita.com/taqm/items/914a2b179e5676a09d35
+```
+class MyClass {
+  private run = () => {
+    alert(this);
+  }
 }
 ```
