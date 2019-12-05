@@ -259,7 +259,8 @@ const smallAnimal = {
 ```
 
 # ジェネリクス
-使われるまで型がきまらないような色々な型の値を受け入れられる。
+使われるまで型がきまらないような色々な型の値を受け入れられる。  
+<T>のTはTypeの頭文字  
 
 # 全イベント名がまとまった辞書
 https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.globaleventhandlerseventmap.html#click
@@ -281,3 +282,7 @@ class MyClass {
   }
 }
 ```
+
+## デコレーター
+公式の翻訳版  
+https://mae.chab.in/archives/59845  
