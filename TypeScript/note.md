@@ -283,7 +283,7 @@ class MyClass {
 }
 ```
 
-## デコレーター
+# デコレーター
 メソッドが実行されるまでに、処理を付け加える（装飾する）。  
 公式の翻訳版  
 https://mae.chab.in/archives/59845  
@@ -291,5 +291,13 @@ https://mae.chab.in/archives/59845
 https://www.agent-grow.com/self20percent/2019/04/08/javascript-and-typescript-decorator/
 https://www.wakuwakubank.com/posts/630-typescript-decorator/
 
-## keyof と Mapped typesがアツい
+# keyof と Mapped typesがアツい
 https://qiita.com/Quramy/items/e27a7756170d06bef22a
+
+# 末尾の！（エクスクラメーションマーク）の意味
+https://qiita.com/zigenin/items/364264a6cf635b962542
+nullやundefinedになることはないと教える記述
+const hoge!; // hogeは絶対になにか入ってる
+
+# styleguide
+https://typescript-jp.gitbook.io/deep-dive/styleguide
