@@ -301,3 +301,15 @@ const hoge!; // hogeは絶対になにか入ってる
 
 # styleguide
 https://typescript-jp.gitbook.io/deep-dive/styleguide
+
+# 独自の型定義ファイルを配置する方法
+https://qiita.com/mtgto/items/e30d1529ca298e49557e  
+以下の書き方は便利そう  
+```
+"compilerOptions": {
+  "paths": { "*": ["types/*"] },
+  "typeRoots": ["types", "node_modules/@types"]
+}
+
+import { hogeType } from 'hoge';
+```
