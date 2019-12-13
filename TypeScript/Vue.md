@@ -15,3 +15,8 @@ Vueをtsにする時、vue-property-decoratorを使う
 
 ## Vue-CLIを使わずに環境を作る場合の超良記事
 https://szgk.xyz/ts_reproduction_vuecli/
+
+## 以前Vueで作成した家計簿のwebアプリをtypescript化
+https://github.com/y-endo/kakeiboApp/tree/feature/v0.0.0-typescript  
+全体的に製作コストが高くなる。  
+Vueの場合、デコレーターやEmit周りの実装に癖がある。  
