@@ -55,3 +55,18 @@ fugaMethod = () => {
 // Hoge
 this.props.fugaMethod(); // fuga
 ```
+
+## Routerについて
+```
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+ReactDOM.render(
+  <Router>
+    <Router exact path="/" component={Top}>
+  </Router>,
+  app
+)
+```
+/ にアクセスした時にTopコンポーネントが表示される。  
+/hoge にアクセスした場合もTopコンポーネントが表示されてしまうので、それを防ぐためにexactを追加する。  
+exactがあると厳密にパスが合っていないと表示されない。
