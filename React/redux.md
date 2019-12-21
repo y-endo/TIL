@@ -21,5 +21,26 @@ ReduxのAction名は、「システムが行うこと」ではなく「外の世
 (o) POST_COMMENT
 ```
 
-# mapStateToPropsとmapDispatchToProps
+## mapStateToPropsとmapDispatchToProps
 https://qiita.com/suzukenz/items/40afe717029c2f8f4a54
+
+## combineReducersをについて
+```
+export default combineReducers({
+  top: topReducer
+});
+
+Store.state.top = topReducer?
+```
+
+アプリケーションが大きくなるとStoreを構成するオブジェクトの構造が複雑になりますが、Reducerを複数の関数に分割して、更新するstateだけを処理することができます。  
+例えば、userに関する処理を行うReducerをuserReducer、foodに関する処理を行うReducerをfoodReducerと定義した場合、  
+```
+const store = createStore(
+  combineReducers({
+    user: userReducer,
+    food: foodReducer
+  })
+);
+```
+とすると、userReducerのstateにはstore.user以下のstate、foodReducerのstateにはstore.food以下のstateを受け取ることができます。
