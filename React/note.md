@@ -171,3 +171,50 @@ this.input = React.createRef();
 
 <input type="text" ref={this.input}>
 ```
+
+## hookとは
+https://ja.reactjs.org/docs/hooks-intro.html
+
+ファンクショナルコンポーネントでstateを使えるようにするもの。
+```
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Click me
+        </button>
+      </div>
+    );
+  }
+}
+
+// こう書いていたものが、↓のようにかける
+
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+## useEffectとは
+componentDidMount と componentDidUpdate と componentWillUnmount がまとまったもの。
