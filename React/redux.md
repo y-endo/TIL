@@ -44,3 +44,25 @@ const store = createStore(
 );
 ```
 とすると、userReducerのstateにはstore.user以下のstate、foodReducerのstateにはstore.food以下のstateを受け取ることができます。
+
+## Reduxの設計方針
+
+- Domain data: アプリケーションが表示したり変更したりするデータ
+  - e.g. TODOアプリなら、todo/doing/done
+- App state: アプリケーション独自の振る舞いのためのデータ
+  - e.g. データの選択状態やデータフェッチのローディング状態
+- UI state: 現在の表示方法のためのデータ
+  - e.g. モーダルが開かれているかどうか
+
+```
+{
+    domainData1 : {},
+    domainData2 : {},
+    appState1 : {},
+    appState2 : {},
+    ui : {
+        uiState1 : {},
+        uiState2 : {},
+    }
+}
+```
