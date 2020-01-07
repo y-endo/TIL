@@ -33,3 +33,13 @@ https://github.com/developit/unfetch/tree/master/packages/isomorphic-unfetch
 
 ## getInitialProps
 Next.jsに用意された機能で、propsの初期値をここで入れられる。  
+
+## タイトルの変更
+https://stackoverflow.com/questions/52170634/how-to-set-documents-title-per-page  
+
+## styled-jsxでsassを使う  
+styled-jsx-plugin-sass  
+https://github.com/giuseppeg/styled-jsx-plugin-sass  
+
+babel.config.jsの追記例  
+https://github.com/zeit/styled-jsx/issues/569  
