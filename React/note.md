@@ -220,8 +220,8 @@ function Example() {
 componentDidMount と componentDidUpdate と componentWillUnmount がまとまったもの。
 
 ## Hooks APIの良記事
-
-https://programmagick.com/blogs/react_hooks_api
+https://programmagick.com/blogs/react_hooks_api  
+https://sbfl.net/blog/2019/11/12/react-hooks-introduction/  
 
 ## React Routerのform(submit)対応
 https://gist.github.com/elitan/5e4cab413dc201e0598ee05287ee4338  
