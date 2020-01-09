@@ -43,3 +43,8 @@ https://github.com/giuseppeg/styled-jsx-plugin-sass
 
 babel.config.jsの追記例  
 https://github.com/zeit/styled-jsx/issues/569  
+
+## getInitialPropsでuseRouterを使いたい。
+普通に実装するとエラーがでる。  
+https://stackoverflow.com/questions/58407074/userouter-not-working-inside-getinitialprops  
+getInitialPropsはサーバー側で動いているから当然。consoleもターミナル側に表示される。
