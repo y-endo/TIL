@@ -66,3 +66,24 @@ query {
 	}
 }
 ```
+
+## Apollo Client + React 入門
+https://www.apollographql.com/docs/react/  
+https://qiita.com/seya/items/e1d8e77352239c4c4897  
+
+- apollo-boost
+	- その名の通り「とりあえずApolloで動かしたいんや！！」というあなたをブーストしてくれるパッケージです。
+	- apollo-cache-inmemory や apollo-link-http などApollo Clientを使う際に基本使うことになるであろうパッケージたちが一緒にインストールされます。詳しい中身を知りたい方はREADMEをどうぞ。
+- react-apollo
+	- ReactとGraphQLクエリの繋ぎこみをサポートしてくれるライブラリです。
+- graphql-tag
+	- GraphQLクエリをテンプレートリテラルで書いたものをパースしてくれる便利なライブラリです。
+- graphql
+	- graphql-tagのpeerDependencyとして必要です。他にも色々機能あるパッケージなんですが、今回入れる目的はそれ。
+
+@apollo/clientだけで充分じゃない？  
+公式チュートリアルをやった感じだとreact-apolloとかgraphql-tagは必要なくて、@apollo/clientに全て含まれてそう。
+
+## apollo-boost はサンプルコード専用と思ったほうがよい
+https://gfx.hatenablog.com/entry/2018/10/30/112054  
+apollo-boostはサンプルとかで使って、プロダクションではapollo-clientおよび関連モジュールを直接使ったほうがよい。  
