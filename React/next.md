@@ -48,3 +48,21 @@ https://github.com/zeit/styled-jsx/issues/569
 普通に実装するとエラーがでる。  
 https://stackoverflow.com/questions/58407074/userouter-not-working-inside-getinitialprops  
 getInitialPropsはサーバー側で動いているから当然。consoleもターミナル側に表示される。
+
+## dynamic routingとLink組み合わせ
+```
+/task/[id].tsx
+
+// これでも動作するけどハードリフレッシュになる
+<Link href="/task/1">
+<a>~~~</a>
+</Link>
+
+// こうする
+<Link href="/task/[id]" as="/task/1">
+<a>~~~</a>
+</Link>
+```
+
+## APIルートにGraphQL
+https://qiita.com/NanimonoDaemon/items/a0ed3d3b8a93b306c88c
