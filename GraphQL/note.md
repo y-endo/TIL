@@ -67,6 +67,86 @@ query {
 }
 ```
 
+## fragment
+冗長な繰り返しを避けるために、プロパティをまとめる  
+```
+fragment allProps on prop {
+	id
+	name
+	age
+}
+
+query {
+	users {
+		allProps
+	}
+}
+```
+Apollo Clientのfragmentの使い方  
+https://www.apollographql.com/docs/react/data/fragments/  
+
+## 入力値バリデーション
+更新する際に、バリデーションを事前に定義することが可能です。$文字列の後に続くものが変数となり、:の後に型と必須チェックを記載しています。  
+例えば、文字列型で必須にしたい場合は$str:String!、数値型で必須ではない場合は$num:Intとなります。  
+```
+mutation setStatus($id:ID! $status:LiftStatus!) {
+  setLiftStatus(id:$id status: $status) {
+    id
+    name
+    status
+  }
+}
+```
+
+Apollo Subscriptionの参考記事  
+https://lambda4.fun/graphql/apollo-express/subscription/  
+```
+const express = require('express');
+const { ApolloServer, PubSub } = require('apollo-server-express');
+const http = require('http');
+const typeDefs = require('./typedefs');
+const resolvers = require('./resolvers');
+
+const app = express();
+const port = 3030;
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: { pubsub: new PubSub() }
+});
+server.applyMiddleware({ app, path: '/graphql' });
+
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({ port }, () => {
+  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`);
+});
+
+---
+
+Mutation: {
+  addUser: async (_, args, context) => {
+    const user = new UserModel({ ...args });
+    await user.save();
+    context.pubsub.publish('userAdded', {
+      userAdded: {
+        id: user.id,
+        name: user.name,
+        age: user.age
+      }
+    });
+    return user;
+  }
+},
+Subscription: {
+  userAdded: {
+    subscribe: (_, __, context) => context.pubsub.asyncIterator('userAdded')
+  }
+}
+```
+
 ## Apollo Client + React 入門
 https://www.apollographql.com/docs/react/  
 https://qiita.com/seya/items/e1d8e77352239c4c4897  
