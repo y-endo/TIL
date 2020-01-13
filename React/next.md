@@ -66,3 +66,14 @@ getInitialPropsはサーバー側で動いているから当然。consoleもタ�
 
 ## APIルートにGraphQL
 https://qiita.com/NanimonoDaemon/items/a0ed3d3b8a93b306c88c
+
+## mongoose（MongoDB）がhot reloadでバグるときの対策 
+https://www.hoangvvo.com/blog/migrate-from-express-js-to-next-js-api-routes/  
+既にコンパイルされたmongoose.modelを上書きできない。  
+```
+const Usert = mongoose.models.User || mongoose.model('User', UserSchema);
+```
+
+## ディレクトリ構成 参考
+https://sergiodxa.com/articles/next-file-structure/  
+Next.js開発者のZeitがこうしてる？  
