@@ -77,3 +77,8 @@ const Usert = mongoose.models.User || mongoose.model('User', UserSchema);
 ## ディレクトリ構成 参考
 https://sergiodxa.com/articles/next-file-structure/  
 Next.js開発者のZeitがこうしてる？  
+
+## APIルートでSubscription
+無理っぽい。  
+別途サーバーを用意しないとできない？多分。  
+queryのキャッシュを無効にして、更新する度にquery発行で凌ぐ
