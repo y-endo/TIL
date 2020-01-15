@@ -100,6 +100,7 @@ mutation setStatus($id:ID! $status:LiftStatus!) {
 
 Apollo Subscriptionの参考記事  
 https://lambda4.fun/graphql/apollo-express/subscription/  
+
 ```
 const express = require('express');
 const { ApolloServer, PubSub } = require('apollo-server-express');
@@ -144,6 +145,30 @@ Subscription: {
   userAdded: {
     subscribe: (_, __, context) => context.pubsub.asyncIterator('userAdded')
   }
+}
+```
+
+## Typeのextend
+https://www.apollographql.com/docs/graphql-tools/generate-schema/#extending-types  
+```
+type Hoge {
+	hoge: String
+}
+extend type Hoge {
+	fuga: String
+}
+```
+
+## 引数の型をObject（定義した型）にしたい
+typeで宣言したものを、引数の型に指定するとエラーになる。  
+inputで宣言する。  
+```
+type Hoge {}
+input HogeInput {}
+
+Mutation {
+	hoge(hoge: Hoge) {} # エラー
+	hoge(hoge: HogeInput) {} # OK
 }
 ```
 
