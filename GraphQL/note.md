@@ -192,3 +192,8 @@ https://qiita.com/seya/items/e1d8e77352239c4c4897
 ## apollo-boost はサンプルコード専用と思ったほうがよい
 https://gfx.hatenablog.com/entry/2018/10/30/112054  
 apollo-boostはサンプルとかで使って、プロダクションではapollo-clientおよび関連モジュールを直接使ったほうがよい。  
+
+## graphql-codegen
+TypeScriptの型定義ファイルを、スキーマから自動生成する。  
+https://graphql-code-generator.com/  
+https://qiita.com/mizchi/items/fb9f598cea94d2c8072d  
