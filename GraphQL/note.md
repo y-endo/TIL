@@ -197,3 +197,6 @@ apollo-boostはサンプルとかで使って、プロダクションではapoll
 TypeScriptの型定義ファイルを、スキーマから自動生成する。  
 https://graphql-code-generator.com/  
 https://qiita.com/mizchi/items/fb9f598cea94d2c8072d  
+
+## webpackでgraphqlファイルを読み込む
+https://dev.to/open-graphql/how-to-resolve-import-for-the-graphql-file-with-typescript-and-webpack-35lf  
