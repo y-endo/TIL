@@ -82,3 +82,8 @@ Next.js開発者のZeitがこうしてる？
 無理っぽい。  
 別途サーバーを用意しないとできない？多分。  
 queryのキャッシュを無効にして、更新する度にquery発行で凌ぐ
+
+## APIルートでfsをつかう
+__dirnameが正常に動かないので、fs.readFileがうまくいかない。  
+https://github.com/zeit/next.js/issues/8251  
+next.config.jsにプロジェクトのルートパスをもたせる。
