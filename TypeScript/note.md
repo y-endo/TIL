@@ -313,3 +313,11 @@ https://qiita.com/mtgto/items/e30d1529ca298e49557e
 
 import { hogeType } from 'hoge';
 ```
+
+## 型ガードのスコープ問題
+入れ子になったり、スコープが外れると型ガードの定義がはずれる。  
+その対策。  
+https://www.nechai.net/2016/10/05/overcoming-typescripts-type-guards-limitations-in-the-nested-scope/  
+
+## 型についてめっちゃ詳しくまとめてる記事
+https://nju33.com/note?note=typescript  
