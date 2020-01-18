@@ -225,3 +225,8 @@ https://sbfl.net/blog/2019/11/12/react-hooks-introduction/
 
 ## React Routerのform(submit)対応
 https://gist.github.com/elitan/5e4cab413dc201e0598ee05287ee4338  
+
+## Functinal Componentから呼ぶ関数はどこで定義するべきか
+https://stackoverflow.com/questions/46138145/functions-in-stateless-components  
+コンポーネントの中に入れてしまうと、レンダリングする度に関数が再定義されるので、そとで定義するべき。  
+もしくはuseCallbackを使う。  
