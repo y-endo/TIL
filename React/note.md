@@ -230,3 +230,15 @@ https://gist.github.com/elitan/5e4cab413dc201e0598ee05287ee4338
 https://stackoverflow.com/questions/46138145/functions-in-stateless-components  
 コンポーネントの中に入れてしまうと、レンダリングする度に関数が再定義されるので、そとで定義するべき。  
 もしくはuseCallbackを使う。  
+
+## Functinal Componentのインスタンス変数
+再レンダリングで保持したい変数（stateじゃない）はuseRefを使う。  
+https://ja.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables  
+> はい！ useRef() フックは DOM への参照を保持するためだけにあるのではありません。“ref” オブジェクトは汎用のコンテナであり、その current プロパティの値は変更可能かつどのような値でも保持することができますので、クラスのインスタンス変数と同様に利用できます。
+
+ただし、TypeScriptで書く場合currentがreadOnlyになる場合がある。  
+https://stackoverflow.com/questions/58017215/what-typescript-type-do-i-use-with-useref-hook-when-setting-current-manually  
+```
+const hoge = useRef<HTMLElement>(null); // ← hoge.current = read-only
+const hoge = useRef<HTMLElement | null>(null); // OK
+```
