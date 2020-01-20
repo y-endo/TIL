@@ -6,6 +6,7 @@ https://www.udemy.com/course/kotlin-beginner/
 ### 変数
 TypeScriptのlet/constがvarになった印象。  
 型推論があるから、初期値があるなら型の省略できる。  
+
 ```
 var 変数名: 変数の型 = 初期値
 ```
@@ -42,4 +43,195 @@ var map = mapOf("First" to 1)
 定数は val で宣言する。  
 ```
 val a = 10
+```
+
+## 演算子
+### 範囲演算子
+範囲を表現できる。  
+```
+// m..n
+val i = 10
+println(i in 1..20) // true
+```
+
+### ifは結果を変数に格納できる
+```
+var num = 10;
+var msg = if (num >= 5) {
+	"numは5以上"
+} else {
+	"numは5未満"
+}
+println(msg) // numは5以上
+```
+
+### when式
+switchみたいなもん。  
+whenもifと同様に結果を返す。  
+```
+when(チェックする変数・式) {
+	条件1 -> 条件1を満たしたときの処理
+	条件2 -> 条件2を満たしたときの処理
+	else -> {
+		条件を満たさなかったときの処理
+	}
+}
+```
+引数がなければ、ifの代替として使える。  
+```
+val a = 10
+when {
+	a <= 5 -> println("aは5以下")
+	a <= 10 -> println("aは10以下")
+	else -> println("aは10よりも大きい")
+}
+```
+
+### forループ
+ラベル構文+breakで外側のループも終了できる。  
+outer@のループをbreakするには、break@outer  
+```
+outer@ for (i in 1..3) {
+	for (j in 1..3) {
+		if (i * j > 5) break@outer
+		print("${i * j}")
+	}
+	println()
+}
+
+結果
+1 2 3
+2 4
+```
+
+## 関数
+### 構文  
+```
+fun 関数名 (引数: 引数の型, 引数2: 引数の型 = デフォルト値, ...): 戻り値の型 {
+	// 処理
+}
+
+関数名(引数)
+```
+引数と戻り値の型宣言は必須。  
+戻り値がない場合は、Unitを指定する。  
+
+戻り値が単一の場合は構文を省略した書き方がができる。  
+```
+fun sayHello(): Unit = println("Hello")
+sayHello()
+```
+
+### 名前付き引数
+関数を呼び出すときに、名前付き引数を使えばどの引数にどの値を渡すか指定できる  
+名前付き引数と通常の引数を混在させる場合は、名前付き引数を後方に記述する必要がある。  
+```
+fun sayHello(firstName: String = "Hoge", lastName: String = "Fuga"): Unit {
+	println("Hello, ${firstName} ${lastName}")
+}
+
+sayHello(lastName = "Endo") // Hello Fuga Endo
+sayHello("Yuki", lastName = "Endo") // Hello Yuki Endo
+sayHello(firstName = "Yuki", "Endo") // エラー
+```
+
+### 可変長引数
+引数にvarargを使うと可変長引数になる。  
+複数の値を渡せる。  
+内部的には配列と同じ扱いになる。  
+```
+fun allSum(vararg values: Int): Int {
+	var result = 0
+	for (value in values) {
+		result += value
+	}
+	return result
+}
+allSum(1, 2, 3, 4, 5) // 15
+```
+
+### 高階関数
+引数に関数を受け取ったり、戻り値で関数を返す関数。  
+forEachなど。  
+引数に関数を渡すには「::関数名」という形で渡す。  
+```
+fun prnt(n: Int) {
+	print(n)
+}
+
+arrayOf(1, 2, 3, 4).forEach(::prnt)
+```
+
+### 匿名関数とラムダ式
+匿名関数（無名関数）の書き方は、ラムダ式が主流  
+```
+// ラムダ式の書き方
+{ 引数 -> 処理 }
+
+// 省略形がたくさんある
+最後の引数がラムダ式の場合は()の外に出せる
+fun hoge(a: Int, b: () -> Unit){}
+hoge(1) {
+	// ラムダ式
+}
+```
+
+ラムダ式でreturnすると直上の関数を抜けてしまう。  
+```
+fun hoge() {
+	val arr = arrayOf(1,2,3)
+	arr.foEach {
+		return // このreturnはforEachではなく、hogeを抜ける
+	}
+}
+```
+それを防ぐためにラベルを使う。  
+```
+fun hoge() {
+	val arr = arrayOf(1,2,3)
+	arr.foEach loop@ {
+		return@loop
+	}
+}
+```
+ラムダ式を引数にとる高階関数の名前をラベルに指定してもよい  
+```
+fun hoge() {
+	val arr = arrayOf(1,2,3)
+	arr.foEach {
+		return@forEach
+	}
+}
+```
+
+## クラス
+### プライマリコンストラクタ
+Kotlinのコンストラクタ構文  
+```
+class クラス名 constructor(引数: 型) {}
+```
+コンストラクタで受け取った引数はクラス内のinitで扱われる。  
+```
+class Human constructor(name: String, age: Int) {
+	var name: String
+	var age: Int
+	
+	init {
+		this.name = name
+		this.age = age
+	}
+}
+```
+プライマリコンストラクタがアノテーションやアクセス修飾子を持たない場合はconstructorを省略可能。  
+```
+class Human(name: String, age: Int) {}
+```
+
+プライマリコンストラクタの引数にvar/valをつけることでプロパティの宣言と初期化を同時に行える。  
+```
+class Human(var name: String, var age: Int) {
+	fun intro() {
+		println("${this.name}、${this.age}")
+	}
+}
 ```
