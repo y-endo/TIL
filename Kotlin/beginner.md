@@ -235,3 +235,116 @@ class Human(var name: String, var age: Int) {
 	}
 }
 ```
+
+### クラスの継承
+Kotlinでクラスの継承を行う場合、元となるクラスはopenと宣言する必要がある。  
+継承するときは クラス名の右に :元のクラス名 と書く。  
+この時に引数を渡すとsuper()的な感じで、元のクラスのコンストラクタを通すことができる。  
+```
+open class Human(var name: String) {
+	open fun intro() {
+		println("")
+	}
+}
+
+class PerfectHuman(name: String, var place: String): Human(name) {
+	override fun intro() {
+		println("")
+		super.intro()
+	}
+}
+```
+
+### データクラス
+データを保持するだけの特殊なクラス。  
+データクラスを定義する際のルール。  
+- プライマリコンストラクタが1つ以上の引数を持つ
+- コンストラクタの引数はすべてvar/valを付与してプロパティの宣言とする
+- abstract / open / saled / innerにすることはできない
+
+よく使うメソッドが予め用意されている。
+- equals
+- toString
+- componentN
+- copy
+など
+
+```
+data class Member(val name: String, val age: Int)
+```
+
+### オブジェクト式
+再利用を目的としないクラス。  
+```
+objet {クラス本体}
+```
+
+### オブジェクト宣言
+ひとつのインスタンスしか持たないようなクラス（シングルトン）
+```
+object オブジェクト名 {オブジェクト本体}
+object TanakaTaro {
+	val name = "田中太郎"
+	
+	fun intro() {
+		println("${name}です。")
+	}
+}
+```
+
+### コンパニオンオブジェクト
+staticなクラス変数・メソッドの事
+```
+class MyClass {
+	companion object {
+		fun create(): MyClass = MyClass()
+	}
+}
+
+val myClass = MyClass.create()
+println(my::class) // class MyClass
+```
+
+### コンパイル時定数
+コンパイル時に初期化される定数。  
+const修飾子を付与する。  
+const修飾子を利用するには以下の条件を満たす必要がある。  
+- トップレベルかオブジェクト式、コンパニオンオブジェクトのメンバである
+- 整数、浮動小数点数、真偽値、文字型、文字列型のいずれかで初期化されている
+- カスタムのgetterを持たない
+```
+const val VERSION = 1
+```
+
+### ネストクラス
+classの中に定義するclass  
+親に強く依存していて、親からしか呼ばれないものはネストクラスを利用する。  
+```
+class Outer {
+	private class Nested {
+		fun hoge()
+	}
+}
+```
+ネストされたクラスから親クラスを参照したい場合は、inner修飾子を使う。  
+```
+class Outer(val name: String = "Outer") {
+	inner class Nested {
+		fun hoge() {
+			println("${this@Outer.name}")
+		}
+	}
+}
+```
+
+## 拡張関数
+継承を用いずに既存のクラスにメソッドを追加できる。  
+拡張関数を使えば、openではないクラスにたいしてもメソッドを追加できるようになる。  
+```
+fun 拡張するクラス名.追加メソッド名(引数: 型, ...): 型 {処理}
+```
+
+## オーバーロード
+引数の方や数が異なっていれば同じ名前のメソッドを定義することができる。  
+これをメソッドのオーバーロードという。  
+基本的に演算子以外では使わない。
