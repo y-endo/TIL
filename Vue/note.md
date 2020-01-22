@@ -1,4 +1,4 @@
-# VueでDOMを参照するプロパティ
+### VueでDOMを参照するプロパティ
 ルート  
 ```
 this.$el
@@ -11,7 +11,7 @@ this.$el
 this.$refs.hoge
 ```
 
-# dataの変更によるDOMの変更をキャッチする
+### dataの変更によるDOMの変更をキャッチする
 $nextTickを使えば、dataの変更によるDOMの書き換えをキャッチできる  
 ```
 <div v-for="item in itemData" class="hoge">
