@@ -87,3 +87,14 @@ queryのキャッシュを無効にして、更新する度にquery発行で凌�
 __dirnameが正常に動かないので、fs.readFileがうまくいかない。  
 https://github.com/zeit/next.js/issues/8251  
 next.config.jsにプロジェクトのルートパスをもたせる。
+
+## getInitialPropsを再実行させたい
+リロード以外に再実行させる術はなさそう。  
+ベストかわからないが、自分が解決した方法はpropsをstateに持たせて、setStateでクライアント側に更新させる。  
+```
+const [state, setState] = React.useState<Props>(props);
+
+getInitialProps = {
+	return { hoge: 'hoge' }
+}
+```
