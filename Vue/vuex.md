@@ -143,3 +143,39 @@ methods: {
 
 <button @click=increment({ hoge: 'fuga' })>
 ```
+
+### ステートの変更を監視する方法
+単純にwatchで監視する。  
+```
+mounted() {
+	this.$store.watch(
+		(state, getters) => getters.hoge,
+		(newValue, oldValue) => {
+			// ~~~ 
+		}
+	)
+}
+```
+
+subscribeでミューテーションを購読する。  
+全てのミューテーションのあとに実行される。  
+```
+mounted() {
+	this.$store.subscribe((mutation, state) => {
+		if (mutation.type === 'HOGE') {
+			// ~~~
+		}
+	})
+}
+```
+
+subscribeActionでアクションを購読する。  
+```
+mounted() {
+	this.$store.subscribeAction((action, state) => {
+		if (action.type === 'HOGE_ACTION') {
+			// ~~~
+		}
+	})
+}
+```
