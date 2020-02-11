@@ -242,3 +242,69 @@ https://stackoverflow.com/questions/58017215/what-typescript-type-do-i-use-with-
 const hoge = useRef<HTMLElement>(null); // ← hoge.current = read-only
 const hoge = useRef<HTMLElement | null>(null); // OK
 ```
+
+### アニメーション
+react-transition-group を使ってアニメーションさせる。  
+↓参考記事
+https://qiita.com/koedamon/items/2665ea80f19589aa2f7d  
+
+主に { Transition, CSSTransition, TransitionGroup } がある。  
+Transitionはインラインスタイルで、コールバックとかもできる。  
+CSSTransitionは各フェーズごとにクラスを付与する感じで、Vueのtransitionと同じような感じ。  
+TransitionGroupはTransitionまたはCSSTransitionのリストを管理する為のコンポーネント  
+コンポーネントのマウント、アンマウント時にenter、exitのスタイルが適用される。  
+```
+import { Transition, CSSTransition } from 'react-transition-group';
+
+const style = {
+  entering: {
+    transition: 'opacity 0.5s ease',
+    opacity: 1
+  },
+  entered: {
+    transition: '',
+    opacity: 1
+  },
+  exiting: {
+    transition: 'opacity 0.5s ease',
+    opacity: 0
+  },
+  exited: {
+    transition: '',
+    opacity: 0
+  }
+};
+const ExampleTransition = () => {
+  const [show, setShow] = useState(true);
+
+  const onClick = () => {
+    setShow(!show);
+  };
+
+  return (
+    <div>
+      <Transition in={show} timeout={500}>
+        {state => <p style={style[state]}>ExampleTransition</p>}
+      </Transition>
+      <button onClick={onClick}>On / Off</button>
+    </div>
+  );
+};
+
+const ExampleCSSTransition = () => {
+  const [show, setShow] = useState(true);
+
+  const onClick = () => {
+    setShow(!show);
+  };
+
+  return (
+    <div>
+      <CSSTransition in={show} classNames={'fade'} timeout={500}>
+        <p>ExampleCSSTransition</p>
+      </CSSTransition>
+      <button onClick={onClick}>On / Off</button>
+    </div>
+  );
+};
+```
