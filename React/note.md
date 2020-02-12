@@ -244,7 +244,7 @@ const hoge = useRef<HTMLElement | null>(null); // OK
 ```
 
 ### アニメーション
-react-transition-group を使ってアニメーションさせる。  
+#### react-transition-group
 ↓参考記事
 https://qiita.com/koedamon/items/2665ea80f19589aa2f7d  
 
@@ -304,6 +304,36 @@ const ExampleCSSTransition = () => {
         <p>ExampleCSSTransition</p>
       </CSSTransition>
       <button onClick={onClick}>On / Off</button>
+    </div>
+  );
+};
+```
+
+#### react-spring
+↓ 参考記事  
+https://qiita.com/uehaj/items/260f188851045cc091ac  
+従来のアニメーションライブラリとはちょっと違い、ユニークなアニメーション設定ができる。  
+> 従来のアニメーションライブラリだと、アニメーションのタイミングや移動速度などは、継続時間とベジエ曲線(イージング関数)で指定するのが普通でした。これに対してreact-springでは慣性、摩擦力、張力をもった物理的な性質(物性)でタイミングを指定
+
+```
+import { useSpring, animated } from 'react-spring';
+
+const Example = () => {
+  const [show, setShow] = useState(true);
+  const spring = useSpring({
+    opacity: show ? 1 : 0
+  });
+
+  return (
+    <div>
+      <animated.div style={spring}>Example</animated.div>
+      <button
+        onClick={() => {
+          setShow(!show);
+        }}
+      >
+        On / Off
+      </button>
     </div>
   );
 };
