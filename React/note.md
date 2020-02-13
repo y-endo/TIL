@@ -338,3 +338,24 @@ const Example = () => {
   );
 };
 ```
+
+#### react-transition-groupとstyled-jsxのcssmoduleを組み合わせる方法
+```
+import transition from "~/styles/components/CSSTransition.scss";
+import { CSSTransition } from "react-transition-group";
+
+<CSSTransition
+  key={todo.id}
+  classNames={{
+    enter: transition["fade-enter"],
+    enterActive: transition["fade-enter-active"],
+    enterDone: transition["fade-enter-done"],
+    exit: transition["fade-exit"],
+    exitActive: transition["fade-exit-active"],
+    exitDone: transition["fade-exit-done"]
+  }}
+  timeout={500}
+>
+  <ToDoListItem todo={todo} />
+</CSSTransition>;
+```
