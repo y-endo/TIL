@@ -25,6 +25,10 @@ if (empty($_POST['user'])) {
 }
 ```
 
+### str_replaceとpreg_replaceの違い
+str_replace() 正規表現のような技巧的な置換を必要としない場合はpreg_replace() の代わりにこの関数を常用するべき  
+https://cpoint-lab.co.jp/article/201806/3400/  
+
 ### ファイルの書き込み
 fopen関数でファイルを開く。  
 fwrite関数で書き込む。  
@@ -59,3 +63,29 @@ if ($file_handle = fopen('ファイルパス', 'r')) {
 	fclose($file_handle);
 }
 ```
+
+### 配列の末尾に要素を追加する書き方
+```
+$arr = array();
+$arr[] = 'hoge'; // この書き方は配列の末尾に追加される
+```
+
+### お手軽サニタイズ
+htmlspecialchars関数。  
+特殊文字をHTMLエンティティへ変換を行う。  
+https://www.php.net/manual/ja/function.htmlspecialchars.php  
+```
+$clean = htmlspecialchars($string, $flags, 'UTF-8');
+```
+
+### データベースの接続
+PDO（PHP Data Objects）を使えば簡単にMySQLなどに接続できる。  
+MySQL以外のデータベースと接続するときも同じメソッドが使えて便利。  
+https://qiita.com/mpyw/items/d52351bd1a8068344cc2  
+https://qiita.com/mpyw/items/b00b72c5c95aac573b71  
+https://qiita.com/sunnyG/items/dd981a5ee4487cedf02f  
+
+### Dockerで環境構築した時にPDOでMySQLに接続できなかったら
+ドライバがない場合と、接続先が間違っている場合がある。  
+https://qiita.com/tarch710/items/1236a23f7ffde4c512f2  
+https://chariosan.com/2019/04/14/lamp_docker_pdoerror/  
