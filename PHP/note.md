@@ -89,3 +89,35 @@ https://qiita.com/sunnyG/items/dd981a5ee4487cedf02f
 ドライバがない場合と、接続先が間違っている場合がある。  
 https://qiita.com/tarch710/items/1236a23f7ffde4c512f2  
 https://chariosan.com/2019/04/14/lamp_docker_pdoerror/  
+
+### PHPで文字列リテラルに式展開
+https://qiita.com/tadsan/items/e4796449c736cfb5c9bd  
+普通の変数展開は次のようにできる。  
+```
+$hello = "hello";
+$world = "world";
+
+echo "{$hello}, {$world}!", PHP_EOL;
+#=> "hello, world!"
+```
+ただし、式展開や定数は上記のやり方ではできない。  
+こうするとできる。  
+```
+const HOGE = 'hoge';
+$i = function ($v) { return $v; };
+echo "{$i(HOGE)}, {$i(mb_strtoupper($world))}!";
+```
+> $iはidentity function、恒等関数(引数と同じものをそのまま返す函数)です。
+
+### セッション
+PHPのセッションの使い方。  
+session_start関数を実行することでセッションの使用を開始する。  
+session_startよりも前にHTMLの出力などしていると警告がでる。  
+$_SESSIONに値を入れる。  
+```
+session_start();
+$_SESSION['hoge'] = 'hoge';
+```
+
+### nl2br() 改行文字の前にHTMLの改行タグを挿入する関数
+https://www.php.net/manual/ja/function.nl2br.php  
