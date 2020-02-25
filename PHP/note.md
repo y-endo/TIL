@@ -118,6 +118,10 @@ $_SESSIONに値を入れる。
 session_start();
 $_SESSION['hoge'] = 'hoge';
 ```
+セッションを削除する場合はunset関数を使う。  
+```
+unset($_SESSION['hoge']);
+```
 
 ### nl2br() 改行文字の前にHTMLの改行タグを挿入する関数
 https://www.php.net/manual/ja/function.nl2br.php  
