@@ -36,3 +36,13 @@ var router = require('./router');
 ...
 app.use('/books', router); 
 ```
+
+### セッション
+express-sessionを使うと簡単にセッションを扱える。  
+```
+インスタンス名.use(session({
+  設定項目: '値',
+}))
+
+request.session.[variable] = 'hoge';
+```
