@@ -8,6 +8,46 @@ $name = 'Yuki';
 const NAME = 'Yuki';
 define('NAME', 'Yuki')
 ```
+
+### 連想配列
+```
+$array2 = [
+  'name' => '遠藤',
+  'age' => 26
+];
+echo "名前は{$array2['name']}";
+```
+
+### 比較演算子の==と===
+==は型を無視した一致、===は型と値も一致。  
+なので===を使うようにする（JSと一緒）
+
+### 比較の早見表
+https://www.php.net/manual/ja/types.comparisons.php  
+
+### switchはあまり使わない方がいいらしい
+PHPのswitchは比較に == が使われているので、型の比較がされない。  
+厳密比較にするには自分で === を書く。  
+```
+case 1: ×
+case === 1: ○
+```
+
+### mb_*** 系
+マルチバイト文字（日本語）に対して純粋な関数を使うと予期せぬ動作になる場合がある。  
+```
+strlen('あいうえお'); // 15になる
+mb_strlen('あいうえお'); // 5になる
+```
+
+### var_dumpを見やすくする方法
+手っ取り早く整形するにはpreタグで囲んでしまう。  
+```
+echo '<pre>';
+echo var_dump(hoge);
+echo '</pre>';
+```
+
 ### POSTデータの受取
 受け取ったデータは「スーパーグローバル」と呼ばれる変数に代入される。  
 $_POST, $_GET $_SESSION, $_FILES などがある。  
@@ -26,7 +66,8 @@ if (empty($_POST['user'])) {
 ```
 
 ### str_replaceとpreg_replaceの違い
-str_replace() 正規表現のような技巧的な置換を必要としない場合はpreg_replace() の代わりにこの関数を常用するべき  
+str_replace() 簡単な置き換え。  
+preg_replace() 正規表現のような技巧的な置換え。  
 https://cpoint-lab.co.jp/article/201806/3400/  
 
 ### ファイルの書き込み
@@ -84,6 +125,25 @@ MySQL以外のデータベースと接続するときも同じメソッドが使
 https://qiita.com/mpyw/items/d52351bd1a8068344cc2  
 https://qiita.com/mpyw/items/b00b72c5c95aac573b71  
 https://qiita.com/sunnyG/items/dd981a5ee4487cedf02f  
+prepareを使う場合、bindValueの第3引数で型をちゃんと渡す。  
+
+### PDOトランザクション
+トランザクション = 複数の処理をまとめて行う  
+beginTransaction 処理の開始
+commit 処理の実行
+rollback 処理のキャンセル
+```
+$pdo -> beginTransaction();
+
+try {
+	$stmt = $pdo->prepare(sql);
+	$stmt->execute();
+	
+	$pdo->commit();
+} catch(PDOException $e) {
+	$pdo->rollback();
+}
+```
 
 ### Dockerで環境構築した時にPDOでMySQLに接続できなかったら
 ドライバがない場合と、接続先が間違っている場合がある。  
@@ -125,3 +185,57 @@ unset($_SESSION['hoge']);
 
 ### nl2br() 改行文字の前にHTMLの改行タグを挿入する関数
 https://www.php.net/manual/ja/function.nl2br.php  
+
+### PHPのコーディング規約
+PSRという有名なコーディング規約があるらしい。  
+またfixするツールもあるので、VSCodeに導入する。  
+https://tech.glatchdesign.com/php-cs-fixer-for-vscode  
+
+### ファイルの読み込み
+require()、require_once()、include()、include_once()
+```
+require './hoge.php';
+require_once './hoge.php';
+include './hoge.php';
+include_once './hoge.php';
+```
+
+### 現在のディレクトリ、ファイルのパス
+```
+__DIR__
+__FILE__
+```
+
+### 設定(php.ini)はPHPのプログラムからも変更できる。
+```
+ini_set('prop', 'value');
+```
+
+### フォームのセキュリティ
+XSS(Cross-Site Scripting)
+クリックジャッキング
+CSRF(Cross-Site Request Forgeries)
+SQLインジェクション
+
+XSS -> サニタイズで対処
+クリックジャッキング -> X-FRAME-OPTIONS: DENYで対処 or htaccess
+```
+// .htaccessの場合
+Header set X-FRAME-OPTIONS "DENY"
+// PHPの場合
+header('X-FRAME-OPTIONS:DENY');
+```
+CSRF -> sessionによるトークンで対処
+```
+if (!isset($_SESSION['token'])) {
+	$_SESSION['token'] = bin2hex(random_bytes(32));
+}
+```
+filter_var()関数を使うとバリデーションができる。  
+https://www.php.net/manual/ja/function.filter-var.php  
+
+### DB操作の基本 CRUD
+Create 新規作成 insert
+Read 表示 select
+Update 更新 update(上書き)
+Delete 削除 delete
