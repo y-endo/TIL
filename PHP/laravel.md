@@ -58,3 +58,17 @@ Personモデル peopleマイグレーション
 ```
 php artisan migrate
 ```
+
+### ddコマンド
+die + var_dump なlaravelのヘルパ関数。  
+実行すると処理を止めて、コンソール的なものを表示させる。  
+
+### コレクション型
+Laravel独自の配列を拡張した型。  
+データベースからデータ取得をしたときはコレクション型になっている。  
+コレクション型専用の関数が多く、メソッドチェーンで記述が可能。  
+https://readouble.com/laravel/6.x/ja/collections.html  
+
+### クエリビルダ
+データベースのクエリをスラスラかける。  
+https://readouble.com/laravel/6.x/ja/queries.html  
