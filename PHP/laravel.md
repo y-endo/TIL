@@ -58,6 +58,14 @@ Personモデル peopleマイグレーション
 ```
 php artisan migrate
 ```
+マイグレーションのロールバック  
+```
+php artisan migrate:rollback
+```
+マイグレーションの状態確認
+```
+php artisan migrate:status
+```
 
 ### ddコマンド
 die + var_dump なlaravelのヘルパ関数。  
@@ -72,3 +80,10 @@ https://readouble.com/laravel/6.x/ja/collections.html
 ### クエリビルダ
 データベースのクエリをスラスラかける。  
 https://readouble.com/laravel/6.x/ja/queries.html  
+
+### コントローラー
+artisanから作成できる。  
+--resource オプションをつけて作成するとRestFulなコントローラーになる。  
+```
+php artisan make:controller HogeController --resource
+```

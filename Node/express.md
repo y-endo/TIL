@@ -46,3 +46,7 @@ express-sessionを使うと簡単にセッションを扱える。
 
 request.session.[variable] = 'hoge';
 ```
+
+### POSTで受け取ったbodyが空になっている
+https://blog.ryo4004.net/web/306/  
+body-parserのjson()を実行しないと空になるらしい。  
