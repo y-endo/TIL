@@ -359,3 +359,33 @@ import { CSSTransition } from "react-transition-group";
   <ToDoListItem todo={todo} />
 </CSSTransition>;
 ```
+
+### プロファイラ
+アプリケーションのレンダー頻度やコストを計測できる。  
+メモ化などの最適化が有効な可能性のある部位を特定する手助け。  
+https://gist.github.com/bvaughn/60a883af01716a03a1b3285a1029be0c  
+https://ja.reactjs.org/docs/profiler.html  
+
+### 再レンダリングの検出
+why-did-you-renderを使うと、再レンダリングを検出できる。  
+https://github.com/welldone-software/why-did-you-render  
+classベースのコンポーネントならwhy-did-you-updateの方が良さげ  
+ちなみに、useStateやuseRefを使っている場合は最初の初期化処理でコンポーネントを再実行している。（再レンダリングではない
+
+### useCallbackとReact.memo + useMemo
+https://qiita.com/Climber22/items/2c6103b4e1ef7a1f2f7c  
+https://qiita.com/k_7016/items/d1e6a5eb934aaf667739  
+**userCallback**
+第二引数が変わらない限り、再レンダリングで関数の再定義を防ぐ。  
+子コンポーネントに関数を渡していて、再レンダリングで関数が再定義されると、内容に変化がないのにムダに子コンポーネントを再レンダリングしてしまうの防ぐために使う。  
+その為、子コンポーネントに渡さない関数をuseCallbackでラップする必要はない。  
+
+**React.memo**
+第一引数にコンポーネントを返す関数を渡し、第二引数にPropsが同一であるかを判断する関数を渡します。  
+第二引数がtrueを返すばあい再レンダリングをしない。  
+第二引数に何も渡さなかった場合はPureComponent(shallowEqual)と同等の比較  
+
+**useMemo**
+重い処理などをメモ化するために使う。  
+コストの高い処理を再レンダリング時に毎回行うと重くなってしまうので、何度実行しても結果が変わらない場合はメモ化する。  
+第二引数に渡した値が変更されない限り実行されない。  
