@@ -339,6 +339,32 @@ const Example = () => {
 };
 ```
 
+**単一コンポーネントにuseTransitionを使う マウント/アンマウントでアニメーション**  
+https://alligator.io/react/advanced-react-spring/  
+```
+import { useTransition, animated } from 'react-spring';
+
+const Index: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const transition = useTransition(isModalOpen, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 }
+  });
+  
+  return <>
+          {transition.map(
+            ({ item, key, props }) =>
+              item && (
+                <animated.div style={props} key={key}>
+                  <Modal />
+                </animated.div>
+              )
+          )}
+        </>;
+};
+```
+
 #### react-transition-groupとstyled-jsxのcssmoduleを組み合わせる方法
 ```
 import transition from "~/styles/components/CSSTransition.scss";
@@ -389,3 +415,27 @@ https://qiita.com/k_7016/items/d1e6a5eb934aaf667739
 重い処理などをメモ化するために使う。  
 コストの高い処理を再レンダリング時に毎回行うと重くなってしまうので、何度実行しても結果が変わらない場合はメモ化する。  
 第二引数に渡した値が変更されない限り実行されない。  
+
+
+### コード分割
+https://ja.reactjs.org/docs/code-splitting.html  
+dynamic importに対応しているし、React.lazyを使えばもっと簡単にコンポーネントの遅延読み込みができる。  
+ただし、React.lazyはSSRには使用できない。  
+
+#### React.lazy
+```
+import OtherComponent from './OtherComponent';
+↓
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+```
+
+#### Suspense
+遅延コンポーネントは、Suspenseコンポーネント内でレンダーされる必要がある。  
+これによって、遅延コンポーネントのローディング待機中にフォールバック用のコンテンツを表示できる。  
+```
+<div>
+	<Suspense fallback={<div>Loading...</div>}>
+		<OtherComponent />
+	</Suspense>
+</div>
+```
