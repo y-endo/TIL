@@ -83,3 +83,11 @@ HogeModel.insertMany([{ name: 'fuga' }, { name: 'hoge' }]);
 mongoose経由でデータを追加すると、versionKeyが追加される。  
 フィールド名を変えることができて、デフォルトは__v  
 https://intellipaat.com/community/27868/what-is-the-v-field-in-mongoose
+
+### ドキュメント内の配列に要素を追加する
+http://sekitaka-1214.hatenablog.com/entry/2014/05/04/102225  
+https://docs.mongodb.com/manual/reference/operator/update/push/  
+```
+// $push を使う
+db.updateOne({ id: 'hoge' }, { $push: { hoge: 'fuga' } })
+```
