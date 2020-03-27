@@ -29,6 +29,17 @@ AngularのHTMLに対するfor処理。
 ```
 <p *ngFor="let item of items">{{ item }}</p>
 ```
+#### *ngForディレクティブで利用できる特殊変数
+- index: 要素のインデックス
+- first: 最初の要素か
+- last: 最後の要素か
+- even: インデックスが偶数か
+- odd: インデックスが奇数か
+```
+// Idの中にindexが入る。
+<li *ngFor="let item of items; index as Id"></li>
+<li *ngFor="let item of items; let Id = index;"></li>
+```
 
 ### *ngIf
 AngularのHTMLに対するif処理
@@ -63,7 +74,7 @@ HTMLタグにこの形で指定する。
 ### モジュール
 複数のコンポーネントをまとめるためのもの。  
 
-### Componentにプロパティデータを渡す方法
+### Componentにプロパティデータを渡す方法(親コンポーネントから子コンポーネントに値を渡す)
 ようはReactのpropsみたいなもの。  
 @angular/coreのInputを使って、htmlのプロパティバインディングしたデータを取得する。  
 静的なデータ以外にも、もちろんオブジェクト(変数)とかも渡せる。  
@@ -74,5 +85,49 @@ import { Input } from '@angular/core';
 
 export class Hoge {
 	@Input() fuga; // 'fuga'
+}
+```
+
+### ComponentからEventを受け取る方法(子コンポーネントから親コンポーネントに値を渡す)
+https://blog.officekoma.co.jp/2019/05/angulareventemitteroutputemit.html  
+@angular/coreのOutputとEventEmitterを使い、メソッドを通じて渡す。  
+```
+<app-alert (notify)="handleNotify()"></app-alert>
+
+export class AlertComponent implements OnInit {
+  @Output() notify = new EventEmitter();
+ }
+ <button (click)="notify.emit()">Notify</button>
+```
+
+### Routingの使い方
+ルーティングはRouterModule.forRootの中に定義する。  
+```
+// app.module.ts
+@NgModule({
+	imports: [
+		RouterModule.forRoot([
+			{ path: '', component: RootComponent },
+			{ path: 'login', component: LoginComponent },
+			{ path: 'product/:productId', component: ProductDetail }
+		])
+	]
+})
+export class AppModule {}
+
+<a [routerLink]="['/detail']">Login</a>
+<a [routerLink]="['/product/1']">Product</a>
+```
+#### URLからパラメータを取得する方法
+@angular/routerの ActivatedRoute を使う。  
+```
+import { ActivatedRoute } from '@angular/router';
+
+constructor(private route: ActivatedRoute) { }
+
+ngOnInit() {
+  this.route.paramMap.subscribe(params => {
+    console.log(params);
+  })
 }
 ```
