@@ -102,6 +102,8 @@ export class AlertComponent implements OnInit {
 
 ### Routingの使い方
 ルーティングはRouterModule.forRootの中に定義する。  
+app-routing.module.tsでRouterModuleをエクスポートし、アプリ全体で使えるようにする。  
+テンプレートファイルにrouter-outletタグを追加することで、ルーティングされたビューを表示する箇所をルーターに教える。  
 ```
 // app.module.ts
 @NgModule({
@@ -117,7 +119,19 @@ export class AppModule {}
 
 <a [routerLink]="['/detail']">Login</a>
 <a [routerLink]="['/product/1']">Product</a>
+
+// URLによって表示されるコンポーネントが変わる
+<router-outlet></router-outlet>
 ```
+#### リダイレクト設定
+pathに訪問した際、redirectToにリダイレクトさせる。  
+空のpathからリダイレクトさせる場合、pathMatchは'full'にする。  
+pathMatchは'prefix'と'full'があり、'prefix'がデフォルト値。  
+```
+{ path: '', redirectTo: '/dashboard', pathMatch: 'full' }
+```
+
+
 #### URLからパラメータを取得する方法
 @angular/routerの ActivatedRoute を使う。  
 ```
@@ -131,3 +145,83 @@ ngOnInit() {
   })
 }
 ```
+
+### AppModule
+Angularでは、アプリケーションの部品がどのように合わさるかや、必要なファイルやライブラリを知る必要がある。  
+この情報をメタデータという。  
+HttpClientModuleやFormsModuleをAppModuleの@NgModuleデコレータに定義しないと使えない。 
+
+### HttpClientを使う
+Angularで用意されているhttp通信用のモジュール。  
+AppModuleでHttpClientModuleを使うために登録する必要がある。  
+```
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+	imports: [
+		HttpClientModule
+	]
+})
+---
+import { HttpClient } from '@angular/common/http';
+
+@Component()
+export class HogeWithHttpClient {
+	constructor(
+		private http: HttpClient
+	){}
+	
+	getJson() {
+		this.http.get('/assets/data.json');
+	}
+}
+```
+
+### VScodeでHTMLに警告がでる
+テンプレートにHTMLファイルを使っている場合、VSCodeにHTMLHintを入れていると警告がでる。  
+.htmlhintrc ファイルでルールを緩和して対策する。  
+```
+{
+  "attr-lowercase": false, // 属性名が小文字か
+  "doctype-first": false // DOCTYPE宣言が先頭にあるか
+}
+```
+
+### Angular CLIを使ったコンポーネントの作成
+html,css(scss),specなどを作ってくれる。  
+しかもapp.componentにimportや登録まで済ませてくれる。  
+```
+ng generate component componentName
+```
+
+### ビルトインパイプ
+補完バインディングの中でパイプ演算子(|)の直後で書式設定ができる。  
+文字列、通貨金額、日付、その他の表示データを書式設定するのに向いている。  
+また、独自のパイプを作ることもできる。  
+```
+// 文字列を大文字にするuppercase
+{{ 'hogehoge' | uppercase }}
+// HOGEHOGE
+```
+
+### 双方向データバインディング
+[(ngModel)] が双方向データバインディング構文になる。  
+```
+<input [(ngModel)]="name" />
+```
+
+### サービス
+親子関係にないコンポーネント同士のデータを共有したりするのに使う。  
+サービスのファイルもAngularのコマンドで生成可能。  
+```
+ng generate service serviceName
+```
+サービスクラスは@injectable()デコレータで注釈される。  
+依存関係注入システムであることを表す。  
+@InjectableデコレータのprovidedInでサービスの提供先を指定する。  
+CLIで作成した場合、rootがデフォルトになっており、アプリケーション全体で使用することができる。  
+providedInで得手のモジュールにのみ適用するようにしておけば、サービスが注入されない場合にツリーシェイキングの対象にできる。  
+
+### その他
+**文字列の前に+をつけてるやつ**  
+JSの仕様で+を文字列の前におくと数値に暗黙の変換を行う。  
