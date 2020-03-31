@@ -123,6 +123,9 @@ export class AppModule {}
 // URLによって表示されるコンポーネントが変わる
 <router-outlet></router-outlet>
 ```
+RouterModuleの forRoot はルートでした使えない。(app-routing.module.ts)  
+他のルーティングで使う場合は、RouterModule.forChild を使う。  
+
 #### リダイレクト設定
 pathに訪問した際、redirectToにリダイレクトさせる。  
 空のpathからリダイレクトさせる場合、pathMatchは'full'にする。  
@@ -225,3 +228,53 @@ providedInで得手のモジュールにのみ適用するようにしておけ�
 ### その他
 **文字列の前に+をつけてるやつ**  
 JSの仕様で+を文字列の前におくと数値に暗黙の変換を行う。  
+
+### AsyncPipe
+*ngForでObservableの反復処理を行う場合は、リスト変数名の末尾に$をつける。  
+Observableをそのままforofでは回せないので、パイプ演算子でasyncを使用する。  
+```
+<li *ngFor="let item of items$ | async"></li>
+```
+
+### グローバルファイルの読み込み
+cssやscriptをアプリケーション全体に反映させる(グローバル読み込み)には、angular.jsonを使うと簡単にできる。  
+projects->projectName->architect->build,test
+のstyleやscriptsの配列にangular.jsonからの相対パスでファイルパスを記述すると読み込まれる。  
+上から順番に読み込まれていく。  
+
+### CommonModule、BrowserModule
+ngIfやngForなどの汎用的な機能を使うためにCommonModuleをimportsする必要がある。  
+BrowserModuleにはCommonModuleが含まれており、app.module.tsでのみ使えば良い。  
+子ModuleではCommonModuleを使う。  
+
+### 困ったこと！
+#### ng serve だと厳密な変更が確認できない？
+importsにCommonModuleがないと正常に動作しない筈なのに、devServerで確認中にCommonModuleを外しても普通に動いちゃう。  
+一旦止めて再コンパイルすると動かなくなる。  
+```
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductComponent } from './product.component';
+import { CommonModule } from '@angular/common';
+
+const routes: Routes = [
+  {
+    path: 'products',
+    component: ProductComponent,
+    children: [
+      { path: '', component: ProductListComponent },
+      { path: 'detail', component: ProductDetailComponent }
+    ]
+  }
+];
+
+@NgModule({
+  declarations: [ProductComponent, ProductDetailComponent, ProductListComponent],
+  imports: [RouterModule.forChild(routes), CommonModule],
+  providers: [],
+  bootstrap: []
+})
+export class ProductModule {}
+```
