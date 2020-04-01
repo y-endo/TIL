@@ -8,6 +8,10 @@ ngコマンドが使えるようになるので、プロジェクトを作る
 ```
 ng new ProjectName
 ```
+いまいるディレクトリでプロジェクトを作りたい場合  
+```
+ng new ProjectName --directory ./
+```
 プロジェクトをフォルダ内で以下のコマンドを打つとlocalhost:4200でserveできる。
 ```
 ng serve
@@ -247,34 +251,9 @@ ngIfやngForなどの汎用的な機能を使うためにCommonModuleをimports�
 BrowserModuleにはCommonModuleが含まれており、app.module.tsでのみ使えば良い。  
 子ModuleではCommonModuleを使う。  
 
-### 困ったこと！
-#### ng serve だと厳密な変更が確認できない？
-importsにCommonModuleがないと正常に動作しない筈なのに、devServerで確認中にCommonModuleを外しても普通に動いちゃう。  
-一旦止めて再コンパイルすると動かなくなる。  
-```
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductComponent } from './product.component';
-import { CommonModule } from '@angular/common';
-
-const routes: Routes = [
-  {
-    path: 'products',
-    component: ProductComponent,
-    children: [
-      { path: '', component: ProductListComponent },
-      { path: 'detail', component: ProductDetailComponent }
-    ]
-  }
-];
-
-@NgModule({
-  declarations: [ProductComponent, ProductDetailComponent, ProductListComponent],
-  imports: [RouterModule.forChild(routes), CommonModule],
-  providers: [],
-  bootstrap: []
-})
-export class ProductModule {}
-```
+### プロキシでHttpClientのCORSを回避(開発)
+例えば、angularアプリはport: 4200で動いていて、APIサーバが:3000で動いていた場合、CORSになってしまい通信できない。  
+それを回避する方法を以下の記事で紹介している。  
+npm scriptsでやる方法を紹介しているけど、angular.jsonに書くほうがスマートっぽい。  
+https://qiita.com/ksh-fthr/items/a462a96de7080092b73c  
+https://angular.jp/guide/build  
