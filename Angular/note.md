@@ -257,3 +257,12 @@ BrowserModuleにはCommonModuleが含まれており、app.module.tsでのみ使
 npm scriptsでやる方法を紹介しているけど、angular.jsonに書くほうがスマートっぽい。  
 https://qiita.com/ksh-fthr/items/a462a96de7080092b73c  
 https://angular.jp/guide/build  
+
+### ディレクトリ構成
+参考にした記事。  
+https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de65ec7  
+
+### サービスをpublicとprivateどちらで使うべきか
+privateで宣言した場合、テンプレートファイル内で参照できない。  
+なので、privateで宣言して、クラスのメソッドからサービスのメソッドを実行する形にするのが良いらしい。  
+https://stackoverflow.com/questions/46596399/typescript-dependency-injection-public-vs-private
