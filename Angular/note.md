@@ -266,3 +266,7 @@ https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de6
 privateで宣言した場合、テンプレートファイル内で参照できない。  
 なので、privateで宣言して、クラスのメソッドからサービスのメソッドを実行する形にするのが良いらしい。  
 https://stackoverflow.com/questions/46596399/typescript-dependency-injection-public-vs-private
+
+### サービスでSubjectを使用してコンポーネント間のデータを共有する
+https://qiita.com/ksh-fthr/items/e43dd37bff2e51e95a59  
+親子は@Input / @Outputでやり取りできるが、この方法なら親子関係じゃなくても大丈夫
