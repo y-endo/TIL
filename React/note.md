@@ -453,3 +453,20 @@ refetch();
 
 なぜかは分かっていないが、useQueryを使ったページから別のページに遷移して、refetchを行うと、strictmodeの場合警告が出る。（アンマウントしたコンポーネントに対するステート変更）  
 useLazyQueryに置き換えると治ったので、一旦置き換えで対処する。  
+
+### CSSModule
+#### scssのimportについて
+変数やmixinはimportを行ったscssをcssmoduleとして読み込んだときに扱える。  
+また、他のscssで定義したクラスをimportすると、それも扱える。  
+```
+// elements.scss
+.button {}
+
+// componentA.scss
+import 'elements.scss';
+
+// componentA.jsx
+import css from 'componentA.scss';
+
+<button className={css['button']}></button>
+```
