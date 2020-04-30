@@ -5,6 +5,7 @@
 ### 入門記事
 https://qiita.com/katsunory/items/75651919f6786864c2b5  
 https://qiita.com/katsunory/items/6635a243abd7c5fb74ea  
+https://tech.recruit-mp.co.jp/front-end/rxjs-intro/  
 
 
 ### 基本概念
@@ -28,3 +29,8 @@ observable.subscribe(
   () => console.log('done')
 );
 ```
+
+### Subject
+Subjectとその種類  
+https://qiita.com/bouzuya/items/1d3251e2c5a53b856d1a  
+

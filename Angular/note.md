@@ -274,3 +274,8 @@ https://qiita.com/ksh-fthr/items/e43dd37bff2e51e95a59
 ### Angular After Tutorial
 Angularチュートリアルを終えた人向けのコンテンツ。  
 https://gitbook.lacolaco.net/angular-after-tutorial/  
+
+### ChangeDetectionStrategy.OnPush
+Angularのパフォーマンス改善で指定するもの。  
+https://qiita.com/masaks/items/61150907ce95b509fcaa  
+OnPushに指定されたComponentはアタッチ時に初回のチェックを行い、あとは外部の変更によるトリガーでチェックされることがない。  
