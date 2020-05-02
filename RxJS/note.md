@@ -34,3 +34,7 @@ observable.subscribe(
 Subjectとその種類  
 https://qiita.com/bouzuya/items/1d3251e2c5a53b856d1a  
 
+### 2種類のObservable
+Observableには2種類ある。  
+購読者の有無に関わらなずストリームが流れつづけるHot Observable、購読者がいるときだけストリームを流すCold Observable。
+

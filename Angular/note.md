@@ -240,6 +240,9 @@ Observableをそのままforofでは回せないので、パイプ演算子でas
 <li *ngFor="let item of items$ | async"></li>
 ```
 
+基本的な方針としてAyncパイプで解決できるケースはAsyncパイプを利用し、subscribe等の明示的な購読は最低限に留める。明示的な購読をした場合購読解除について考える必要がある。  
+Asyncパイプを使えば、コンポーネントのライフサイクルに合わせて自動的に購読・購読解除がおこなわれる。  
+
 ### グローバルファイルの読み込み
 cssやscriptをアプリケーション全体に反映させる(グローバル読み込み)には、angular.jsonを使うと簡単にできる。  
 projects->projectName->architect->build,test
@@ -279,3 +282,7 @@ https://gitbook.lacolaco.net/angular-after-tutorial/
 Angularのパフォーマンス改善で指定するもの。  
 https://qiita.com/masaks/items/61150907ce95b509fcaa  
 OnPushに指定されたComponentはアタッチ時に初回のチェックを行い、あとは外部の変更によるトリガーでチェックされることがない。  
+
+### ng-container
+https://qiita.com/shibukawa/items/c8c7fd22c1054348db3a  
+ReactのFragment的なもの。  
