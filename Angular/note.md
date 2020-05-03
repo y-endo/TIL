@@ -290,6 +290,44 @@ OnPushに指定されたComponentはアタッチ時に初回のチェックを�
 ### ng-container
 https://qiita.com/shibukawa/items/c8c7fd22c1054348db3a  
 ReactのFragment的なもの。  
+```
+<ng-container>
+  <p>A</p>
+</ng-container>
+↓
+<p>A</p>
+```
+
+### ng-template
+表示されない。templateタグ的なもの。  
+#で名前をつけて、ローディング中に出す別の要素として使える。  
+```
+<div *ngIf="loaded; else loading"></div>
+<div *ngIf="loaded; then loaded; else loading"></div>
+<ng-template #loaded>
+	loaded
+</ng-template>
+<ng-template #loading>
+	loading...
+</ng-template>
+```
+
+### ng-content
+Reactのchild的なもの。  
+```
+// outer.component.html
+<div class="outer">
+	<ng-content></ng-content>
+</div>
+
+<app-outer>
+	<p>テキスト</p>
+</app-outer>
+↓
+<div class="outer">
+	<p>テキスト</p>
+</div>
+```
 
 ### ngIfによるテンプレートのブロック化
 Asyncパイプを使う時に同じObservableに複数回Asyncパイプを適用できるが、同じObservableを2度購読することになるので非推奨。  
@@ -340,3 +378,15 @@ as-snapshotパターンの注意点
   <div>Bar: {{ snapshot.bar }}</div>
 </ng-container>
 ```
+
+### Form
+https://angular.jp/guide/forms-overview  
+https://angular.jp/guide/reactive-forms  
+主にリアクティブフォームを使いことになりそう？  
+FormBuilderなどを使うには、AppModuleにFormsModuleとReactiveFormsModuleをimportする。  
+#### [formGroup]とformGroupNameの違い。 [formControl]とformControlName の違い。
+formGroupNameはネスト用かな？[formGroup]の中に入れ子のグループがある場合、そいつはformGroupName指定にする。  
+
+formControlも考え方は同じだけど、逆。  
+[formControl]が入れ子ようで、formControlNameは[formGroup]の子。  
+https://stackoverflow.com/questions/40171914/what-is-the-difference-between-formcontrolname-and-formcontrol  
