@@ -12,6 +12,10 @@ ng new ProjectName
 ```
 ng new ProjectName --directory ./
 ```
+テストファイルの生成をスキップしたい場合
+```
+ng new ProjectName --skip-tests
+```
 プロジェクトをフォルダ内で以下のコマンドを打つとlocalhost:4200でserveできる。
 ```
 ng serve

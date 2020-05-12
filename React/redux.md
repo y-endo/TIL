@@ -96,3 +96,7 @@ export function asyncIncrement() {
 	};
 }
 ```
+
+### Redux devtools
+Chromeの拡張機能。発生したアクションの履歴とかを見えるようにするらしい。  
+https://harkerhack.com/react-redux-devtools/  
