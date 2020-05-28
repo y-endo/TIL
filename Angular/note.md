@@ -220,6 +220,8 @@ ng generate component componentName
 ```
 <input [(ngModel)]="name" />
 ```
+テンプレート駆動フォームで双方向データバインディングを行う場合、formを含める事ができない。  
+inputタグをformタグの中に入れた状態でngModelを指定してもエラーがでる。  
 
 ### サービス
 親子関係にないコンポーネント同士のデータを共有したりするのに使う。  
