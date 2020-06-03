@@ -97,6 +97,12 @@ export function asyncIncrement() {
 }
 ```
 
+### typescript-fsa-redux-thunk
+typescript-fsaでredux-thunkを使うには。  
+https://github.com/xdave/typescript-fsa-redux-thunk  
+https://gist.github.com/yuki-ycino/28a109f6dff332d40b420d10ab741060  
+
+
 ### Redux devtools
 Chromeの拡張機能。発生したアクションの履歴とかを見えるようにするらしい。  
 https://harkerhack.com/react-redux-devtools/  
