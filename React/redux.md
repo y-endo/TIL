@@ -106,3 +106,7 @@ https://gist.github.com/yuki-ycino/28a109f6dff332d40b420d10ab741060
 ### Redux devtools
 Chromeの拡張機能。発生したアクションの履歴とかを見えるようにするらしい。  
 https://harkerhack.com/react-redux-devtools/  
+
+### Redux Toolkit
+入門解説記事  
+https://www.hypertextcandy.com/learn-react-redux-with-hooks-and-redux-starter-kit

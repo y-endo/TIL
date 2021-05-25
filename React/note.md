@@ -470,3 +470,9 @@ import css from 'componentA.scss';
 
 <button className={css['button']}></button>
 ```
+
+### clsx
+Reactで動的にクラス名を設定する場合に便利なライブラリ。  
+https://qiita.com/taqm/items/c38855d8158cdd9d5a3e  
+classnamesというのが主流だったが、こちらが上位互換らしくmaterial-uiでも使われている。  
+classnames: https://www.yoheim.net/blog.php?q=20180701  
