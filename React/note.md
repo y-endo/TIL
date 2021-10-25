@@ -228,7 +228,8 @@ https://gist.github.com/elitan/5e4cab413dc201e0598ee05287ee4338
 
 ## Functinal Componentから呼ぶ関数はどこで定義するべきか
 https://stackoverflow.com/questions/46138145/functions-in-stateless-components  
-コンポーネントの中に入れてしまうと、レンダリングする度に関数が再定義されるので、そとで定義するべき。  
+コンポーネントの中に入れてしまうと、レンダリングする度に関数が再定義されるので、そとで定義するべき。   
+↑駄目らしい、外で定義しても解決しない。
 もしくはuseCallbackを使う。  
 
 ## Functinal Componentのインスタンス変数
@@ -476,3 +477,7 @@ Reactで動的にクラス名を設定する場合に便利なライブラリ。
 https://qiita.com/taqm/items/c38855d8158cdd9d5a3e  
 classnamesというのが主流だったが、こちらが上位互換らしくmaterial-uiでも使われている。  
 classnames: https://www.yoheim.net/blog.php?q=20180701  
+
+### styled-components
+#### react-routerのLinkにstyled-componentsを使う
+https://mottox2.com/posts/133  
